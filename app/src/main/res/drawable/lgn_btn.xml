@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Fill color -->
+    <solid android:color="@color/main_color" />
+    <!-- Set the four corners of the button to be curved -->
+    <!-- android:radius The radius of the arc -->
+    <corners android:radius="@dimen/_8sdp" />
+    <!--The width and color of the border-->
+    <stroke
+        android:width="3px"
+        android:color="@color/main_color" />
+</shape>
