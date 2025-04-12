@@ -11,22 +11,22 @@ import com.microinvestment.utils.InvestmentUtils
 import com.microinvestment.utils.Utils
 
 
-class WithdrawAdapter(private var data: List<InvestmentWithPlan>) :
-    RecyclerView.Adapter<WithdrawAdapter.ViewHolder>() {
+class WithdrawalsAdapter(private var data: List<InvestmentWithPlan>) :
+    RecyclerView.Adapter<WithdrawalsAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: LayoutInvestmentBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
-    ): WithdrawAdapter.ViewHolder {
+    ): WithdrawalsAdapter.ViewHolder {
         val binding =
             LayoutInvestmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: WithdrawAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: WithdrawalsAdapter.ViewHolder, position: Int) {
         with(holder) {
             val investment = data[position].investment
             val plan = data[position].plan
@@ -35,15 +35,13 @@ class WithdrawAdapter(private var data: List<InvestmentWithPlan>) :
                 investment,
                 plan
             )
-            val canWithdraw =
-                InvestmentUtils.canWithdraw(investment, plan)
 
             with(binding) {
                 planText.text = "Plan: ${plan.name}"
-                investedText.text = "Invested: UGX ${Utils.numFormat(investment.amount)}"
-                currentValueText.text = "Current Value: UGX ${Utils.numFormat(currentValue)}"
-                statusText.text =
-                    "Status: ${if (investment.isWithdrawn) "Withdrawn" else if (canWithdraw) "Ready to Withdraw" else "Locked"}"
+                investedText.text = "Original Amount: UGX ${Utils.numFormat(investment.amount)}"
+                currentValueText.text =
+                    "Current Value (with interest): UGX ${Utils.numFormat(currentValue)}"
+                statusText.visibility = View.GONE
                 withdrawButton.visibility = View.GONE
 
             }

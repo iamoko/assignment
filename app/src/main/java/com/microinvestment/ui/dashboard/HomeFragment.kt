@@ -1,17 +1,12 @@
 package com.microinvestment.ui.dashboard
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -24,13 +19,11 @@ import com.microinvestment.data.models.Home
 import com.microinvestment.data.models.InvestmentWithPlan
 import com.microinvestment.data.models.User
 import com.microinvestment.databinding.FragmentHomeBinding
+import com.microinvestment.ui.auth.WelcomeActivity
 import com.microinvestment.ui.investment.InvestmentActivity
 import com.microinvestment.utils.Clicked
-import com.microinvestment.utils.InvestmentUtils
-import com.microinvestment.utils.NotificationHelper
 import com.microinvestment.utils.SharedPrefManager
 import com.microinvestment.viewmodels.InvestmentViewModel
-import com.microinvestment.viewmodels.PlanViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,7 +31,6 @@ import kotlinx.coroutines.withContext
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var sharedPref: SharedPrefManager
-
 
     var userId: Int = -1
 
@@ -56,7 +48,19 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initViews() {
+        with(ViewModelProvider(this)[InvestmentViewModel::class.java]) {
+            loadSummary(userId)
+            investmentSummary.observe(viewLifecycleOwner) { summary ->
+                binding.apply {
+                    summaryText.text = "Total Invested: UGX %.0f".format(summary.totalInvested)
+                    earningsText.text = "Total Earnings: UGX %.0f".format(summary.totalEarnings)
+                    availableText.text =
+                        "Available for Withdrawal: UGX %.0f".format(summary.available)
+                }
+            }
+        }
 
         /** To avoid blocking the main thread */
         lifecycleScope.launch {
@@ -81,13 +85,8 @@ class HomeFragment : Fragment() {
                         )!!
                     ),
                     Home(
-                        getString(R.string.invest_now), ContextCompat.getDrawable(
-                            requireContext(), R.drawable.ic_investment
-                        )!!
-                    ),
-                    Home(
-                        getString(R.string.invest_now), ContextCompat.getDrawable(
-                            requireContext(), R.drawable.ic_investment
+                        getString(R.string.logout), ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_logout
                         )!!
                     ),
                 ), object : Clicked {
@@ -98,6 +97,8 @@ class HomeFragment : Fragment() {
                                     requireContext(), InvestmentActivity::class.java
                                 )
                             )
+
+                            getString(R.string.logout) -> logout()
                         }
                     }
 
@@ -110,6 +111,29 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun logout() {
+        val items = arrayOf(
+            resources.getString(R.string.yes),
+            resources.getString(R.string.no),
+        )
+
+        val builder = AlertDialog.Builder(activity)
+        builder.setTitle(getString(R.string.are_you_sure_you_want_to_logout))
+        builder.setItems(items) { dialog, item ->
+            when {
+                items[item] == resources.getString(R.string.yes) -> {
+                    with(activity) {
+                        sharedPref.clearUser()
+                        startActivity(Intent(this, WelcomeActivity::class.java))
+                        requireActivity().finish()
+                    }
+                }
+
+                items[item] == resources.getString(R.string.cancel) -> dialog.dismiss()
+            }
+        }
+        builder.show()
+    }
 
     companion object {
         @JvmStatic

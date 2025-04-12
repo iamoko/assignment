@@ -7,14 +7,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.microinvestment.data.db.AppDatabase
 import com.microinvestment.data.models.Investment
+import com.microinvestment.data.models.InvestmentSummary
 import com.microinvestment.data.models.InvestmentWithPlan
 import com.microinvestment.data.repository.InvestmentRepository
+import com.microinvestment.data.repository.PlanRepository
+import com.microinvestment.utils.InvestmentUtils
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class InvestmentViewModel(application: Application) : AndroidViewModel(application) {
     private val investmentRepository: InvestmentRepository =
         InvestmentRepository(application)
+    private val planRepository: PlanRepository =
+        PlanRepository(application)
     val investments = MutableLiveData<List<Investment>>()
     val investmentCreationStatus = MutableLiveData<Boolean>()
 
@@ -73,6 +79,32 @@ class InvestmentViewModel(application: Application) : AndroidViewModel(applicati
     fun loadWithdrawals(userId: Int) {
         viewModelScope.launch {
             _withdrawals.value = investmentRepository.getWithdrawalsByUser(userId)
+        }
+    }
+
+
+    /** Plan details */
+    val investmentSummary = MutableLiveData<InvestmentSummary>()
+    fun loadSummary(userId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val investments = investmentRepository.getUserInvestments(userId)
+
+            var invested = 0.0
+            var earnings = 0.0
+            var withdrawable = 0.0
+
+            investments.forEach {
+                val plan = planRepository.getPlanById(it.planId)
+                val currentValue = InvestmentUtils.calculateCurrentValue(it, plan)
+                invested += it.amount
+                earnings += (currentValue - it.amount)
+                if (InvestmentUtils.canWithdraw(it, plan)) withdrawable += currentValue
+            }
+
+            investmentSummary.postValue(
+                InvestmentSummary(invested, earnings, withdrawable)
+            )
         }
     }
 }

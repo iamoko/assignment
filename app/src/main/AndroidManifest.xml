@@ -29,9 +29,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.dashboard.PortfolioActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.investment.InvestmentActivity"
             android:exported="false" />
         <activity

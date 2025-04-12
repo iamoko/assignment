@@ -1,7 +1,11 @@
 package com.microinvestment
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.microinvestment.data.db.AppDatabase
@@ -9,9 +13,11 @@ import com.microinvestment.data.models.User
 import com.microinvestment.databinding.ActivityMainBinding
 import com.microinvestment.adapters.ViewPagerAdapter
 import com.microinvestment.utils.SharedPrefManager
+import com.microinvestment.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import android.Manifest
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -26,10 +32,6 @@ class MainActivity : AppCompatActivity() {
         initViews()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-    }
 
     private fun initViews() {
         sharedPref = SharedPrefManager(this)

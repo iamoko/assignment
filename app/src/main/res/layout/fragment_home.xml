@@ -33,10 +33,45 @@
             android:textSize="@dimen/_18ssp" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_15sdp" />
+        android:layout_margin="@dimen/_15sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/summaryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chirp"
+            android:text="Total Invested: UGX 0"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:id="@+id/earningsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/chirp"
+            android:text="Total Earnings: UGX 0"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:id="@+id/availableText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/chirp"
+            android:text="Available for Withdrawal: UGX 0"
+            android:textSize="@dimen/_12ssp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

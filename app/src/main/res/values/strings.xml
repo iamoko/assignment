@@ -30,4 +30,12 @@
     <string name="enter_amount">Enter Amount</string>
     <string name="invest">Invest</string>
     <string name="no_data_available">No data available</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
+    <string name="cancel">Cancel</string>
+    <string name="registration_successful">Registration Successful</string>
+    <string name="logout">Logout</string>
+    <string name="please_accept_app_permissions">Please accept notification permissions</string>
+    <string name="ok_btn">Ok</string>
 </resources>

@@ -4,6 +4,7 @@
 
         <item name="android:statusBarColor">@color/main_color</item>
         <item name="android:textColor">@color/text_color</item>
+        <item name="android:navigationBarColor">@color/lighter_light_gray</item>
     </style>
 
     <style name="Theme.MicroInvestment" parent="Base.Theme.MicroInvestment" />

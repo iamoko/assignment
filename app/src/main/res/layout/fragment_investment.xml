@@ -13,14 +13,15 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/chirp_medium"
         android:text="@string/hello_blank_fragment"
-        android:textSize="@dimen/_12ssp" />
+        android:textAlignment="center"
+        android:textSize="@dimen/_14ssp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title"
-        android:layout_marginTop="@dimen/_10sdp" />
+        android:layout_marginTop="@dimen/_15sdp" />
 
     <LinearLayout
         android:id="@+id/noData"

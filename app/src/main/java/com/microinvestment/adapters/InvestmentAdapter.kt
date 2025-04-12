@@ -5,16 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.microinvestment.data.models.Home
-import com.microinvestment.data.models.Investment
 import com.microinvestment.data.models.InvestmentWithPlan
-import com.microinvestment.databinding.LayoutHomeItemBinding
 import com.microinvestment.databinding.LayoutInvestmentBinding
 import com.microinvestment.utils.Clicked
 import com.microinvestment.utils.InvestmentUtils
-import com.microinvestment.utils.NotificationHelper
 import com.microinvestment.utils.Utils
-import java.util.stream.IntStream
 
 
 class InvestmentAdapter(
@@ -54,7 +49,8 @@ class InvestmentAdapter(
                 statusText.text =
                     "Status: ${if (investment.isWithdrawn) "Withdrawn" else if (canWithdraw) "Ready to Withdraw" else "Locked"}"
 
-                withdrawButton.visibility = if (canWithdraw) View.VISIBLE else View.GONE
+                withdrawButton.visibility =
+                    if (canWithdraw && !investment.isWithdrawn) View.VISIBLE else View.GONE
 
                 if (canWithdraw) {
                     withdrawButton.setOnClickListener {

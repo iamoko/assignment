@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
 import com.microinvestment.R
 import com.microinvestment.databinding.ActivityRegisterBinding
+import com.microinvestment.utils.NotificationHelper
 import com.microinvestment.utils.Utils.makeLinks
 import com.microinvestment.viewmodels.AuthViewModel
 
@@ -33,8 +34,15 @@ class RegisterActivity : AppCompatActivity() {
         // Observe the registration status
         authViewModel.registrationStatus.observe(this@RegisterActivity) { user ->
             if (user != null) {
+                NotificationHelper.sendNotification(
+                    this@RegisterActivity,
+                    getString(R.string.registration_successful),
+                    "You have Successfully created an account"
+                )
                 Toast.makeText(
-                    this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT
+                    this@RegisterActivity,
+                    getString(R.string.registration_successful),
+                    Toast.LENGTH_SHORT
                 ).show()
                 // Navigate to login or next screen
                 goToLogin()

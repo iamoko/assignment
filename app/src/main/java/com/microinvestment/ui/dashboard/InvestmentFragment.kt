@@ -2,7 +2,6 @@ package com.microinvestment.ui.dashboard
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,17 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.microinvestment.R
 import com.microinvestment.adapters.InvestmentAdapter
-import com.microinvestment.adapters.WithdrawAdapter
-import com.microinvestment.data.models.Investment
+import com.microinvestment.adapters.WithdrawalsAdapter
 import com.microinvestment.data.models.InvestmentWithPlan
 import com.microinvestment.databinding.FragmentInvestmentBinding
-import com.microinvestment.databinding.LayoutInvestmentBinding
 import com.microinvestment.utils.Clicked
 import com.microinvestment.utils.InvestmentUtils
 import com.microinvestment.utils.NotificationHelper
-import com.microinvestment.utils.Utils
 import com.microinvestment.viewmodels.InvestmentViewModel
-import com.microinvestment.viewmodels.PlanViewModel
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "userID"
@@ -70,7 +65,7 @@ class InvestmentFragment : Fragment() {
             withdrawals.observe(viewLifecycleOwner) { data ->
                 with(binding) {
                     noData.visibility = if (data.isNotEmpty()) View.GONE else View.VISIBLE
-                    recyclerView.adapter = WithdrawAdapter(data)
+                    recyclerView.adapter = WithdrawalsAdapter(data)
                 }
             }
 

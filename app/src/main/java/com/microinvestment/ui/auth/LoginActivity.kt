@@ -10,6 +10,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.microinvestment.MainActivity
 import com.microinvestment.R
 import com.microinvestment.databinding.ActivityLoginBinding
+import com.microinvestment.utils.NotificationHelper
 import com.microinvestment.utils.SharedPrefManager
 import com.microinvestment.utils.Utils.makeLinks
 import com.microinvestment.viewmodels.AuthViewModel
@@ -60,6 +61,11 @@ class LoginActivity : AppCompatActivity() {
 
             // Login button click handler
             loginButton.setOnClickListener {
+                NotificationHelper.sendNotification(
+                    this@LoginActivity,
+                    getString(R.string.registration_successful),
+                    "You have Successfully created an account"
+                )
                 val username = usernameEditText.text.toString().trim()
                 val password = passwordEditText.text.toString().trim()
 
