@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -8,27 +7,58 @@
     android:orientation="vertical"
     tools:context=".ui.investment.InvestmentActivity">
 
-    <TextView
-        android:id="@+id/planTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Plan" />
+    <include
+        android:id="@+id/header"
+        layout="@layout/nav_header" />
 
-    <Spinner
-        android:id="@+id/planSpinner"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/_20sdp">
 
-    <EditText
-        android:id="@+id/amountEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Amount"
-        android:inputType="numberDecimal" />
+        <TextView
+            android:id="@+id/planTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chirp_medium"
+            android:text="@string/select_plan"
+            android:textSize="@dimen/_12ssp" />
 
-    <Button
-        android:id="@+id/investButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Invest" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/text_input">
+
+            <Spinner
+                android:id="@+id/planSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_1ssp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/amountEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/text_input"
+            android:hint="@string/enter_amount"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/_12sdp"
+            android:textSize="@dimen/_11ssp" />
+
+        <Button
+            android:id="@+id/investButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/lgn_btn"
+            android:text="@string/invest"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
 </LinearLayout>

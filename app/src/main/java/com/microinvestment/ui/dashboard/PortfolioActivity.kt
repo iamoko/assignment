@@ -32,41 +32,41 @@ class PortfolioActivity : AppCompatActivity() {
         db = AppDatabase.getInstance(this)
 
         binding.apply {
-            val container = findViewById<LinearLayout>(R.id.portfolioContainer)
-            val investments = db.investmentDao().getUserInvestments(userId)
-
-            investments.forEach { inv ->
-                val plan = db.planDao().getById(inv.planId)
-                val currentValue = InvestmentUtils.calculateCurrentValue(inv, plan)
-                val eligible = InvestmentUtils.canWithdraw(inv, plan)
-
-                val text = TextView(this@PortfolioActivity)
-                text.text =
-                    "Plan: ${plan.name}\nAmount: UGX ${inv.amount}\nCurrent: UGX %.2f\nEligible: $eligible".format(
-                        currentValue
-                    )
-                container.addView(text)
-
-                if (eligible) {
-                    val withdrawButton = Button(this@PortfolioActivity).apply {
-                        text.text = "Withdraw"
-                        setOnClickListener {
-                            inv.isWithdrawn = true
-                            db.investmentDao().update(inv)
-                            NotificationHelper.sendNotification(
-                                this@PortfolioActivity,
-                                "Withdrawal",
-                                "Withdrew UGX %.2f from ${plan.name}".format(currentValue)
-                            )
-                            Toast.makeText(
-                                this@PortfolioActivity, "Withdrawal Complete", Toast.LENGTH_SHORT
-                            ).show()
-                            it.isEnabled = false
-                        }
-                    }
-                    container.addView(withdrawButton)
-                }
-            }
+//            val container = findViewById<LinearLayout>(R.id.portfolioContainer)
+//            val investments = db.investmentDao().getUserInvestments(userId)
+//
+//            investments.forEach { inv ->
+//                val plan = db.planDao().getById(inv.planId)
+//                val currentValue = InvestmentUtils.calculateCurrentValue(inv, plan)
+//                val eligible = InvestmentUtils.canWithdraw(inv, plan)
+//
+//                val text = TextView(this@PortfolioActivity)
+//                text.text =
+//                    "Plan: ${plan.name}\nAmount: UGX ${inv.amount}\nCurrent: UGX %.2f\nEligible: $eligible".format(
+//                        currentValue
+//                    )
+//                container.addView(text)
+//
+//                if (eligible) {
+//                    val withdrawButton = Button(this@PortfolioActivity).apply {
+//                        text.text = "Withdraw"
+//                        setOnClickListener {
+//                            inv.isWithdrawn = true
+//                            db.investmentDao().update(inv)
+//                            NotificationHelper.sendNotification(
+//                                this@PortfolioActivity,
+//                                "Withdrawal",
+//                                "Withdrew UGX %.2f from ${plan.name}".format(currentValue)
+//                            )
+//                            Toast.makeText(
+//                                this@PortfolioActivity, "Withdrawal Complete", Toast.LENGTH_SHORT
+//                            ).show()
+//                            it.isEnabled = false
+//                        }
+//                    }
+//                    container.addView(withdrawButton)
+//                }
+//            }
         }
 
     }

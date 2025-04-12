@@ -1,23 +1,38 @@
 package com.microinvestment.data.repository
 
+import android.content.Context
 import com.microinvestment.data.db.AppDatabase
 import com.microinvestment.data.models.Investment
-import com.microinvestment.data.models.User
+import com.microinvestment.data.models.InvestmentWithPlan
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
-class InvestmentRepository(private val db: AppDatabase) {
+class InvestmentRepository(private val context: Context) {
+    private val db = AppDatabase.getInstance(context)
+    suspend fun getUserInvestments(userId: Int): List<Investment> {
+        return db.investmentDao().getUserInvestments(userId)
+    }
 
-    // User
-    fun getUser(username: String) = db.userDao().getUser(username)
-    fun registerUser(user: User) = db.userDao().insert(user)
-    fun getUserById(id: Int) = db.userDao().getUserById(id)
+    suspend fun createInvestment(investment: Investment) {
+        db.investmentDao().insert(investment)
+    }
 
-    // Plans
-    fun getAllPlans() = db.planDao().getAll()
-    fun getPlanById(id: Int) = db.planDao().getById(id)
+    suspend fun updateInvestment(investment: Investment) {
+        db.investmentDao().update(investment)
+    }
 
-    // Investments
-    fun invest(investment: Investment) = db.investmentDao().insert(investment)
-    fun getUserInvestments(userId: Int) = db.investmentDao().getUserInvestments(userId)
-    fun updateInvestment(investment: Investment) = db.investmentDao().update(investment)
+    suspend fun getInvestmentWithPlan(id: Int): InvestmentWithPlan? = withContext(Dispatchers.IO) {
+        db.investmentDao().getInvestmentWithPlan(id)
+    }
+
+    suspend fun getInvestmentsWithPlansByUser(userId: Int): List<InvestmentWithPlan> =
+        withContext(Dispatchers.IO) {
+            db.investmentDao().getAllInvestmentsWithPlans(userId)
+        }
+
+    suspend fun getWithdrawalsByUser(userId: Int): List<InvestmentWithPlan> =
+        withContext(Dispatchers.IO) {
+            db.investmentDao().getWithdrawalsWithPlans(userId)
+        }
 }

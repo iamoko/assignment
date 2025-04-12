@@ -11,8 +11,21 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.microinvestment.R
+import com.microinvestment.data.models.InvestmentWithPlan
+import java.text.NumberFormat
+import java.util.Locale
+
+interface Clicked {
+    fun onClick(label: String)
+    fun onClick(data: InvestmentWithPlan)
+}
 
 object Utils {
+    fun numFormat(number: Double): String {
+        val nf: NumberFormat = NumberFormat.getInstance(Locale.US)
+        return nf.format(number)
+    }
+
     fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
         val spannableString = SpannableString(this.text)
         var startIndexOfLink = -1
@@ -21,7 +34,7 @@ object Utils {
                 override fun updateDrawState(textPaint: TextPaint) {
                     // use this to change the link color
 
-                    textPaint.color =  ContextCompat.getColor(context, R.color.main_color)
+                    textPaint.color = ContextCompat.getColor(context, R.color.main_color)
                     // toggle below value to enable/disable
                     // the underline shown below the clickable text
                     textPaint.isUnderlineText = true

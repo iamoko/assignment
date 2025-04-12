@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/text_input"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/planText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chirp_bold"
+            android:text="@string/investments"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:id="@+id/investedText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:fontFamily="@font/chirp"
+            android:text="@string/investments"
+            android:textSize="@dimen/_11ssp" />
+
+        <TextView
+            android:id="@+id/currentValueText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chirp"
+            android:text="@string/investments"
+            android:textSize="@dimen/_11ssp" />
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chirp"
+            android:text="@string/investments"
+            android:textSize="@dimen/_11ssp" />
+
+        <Button
+            android:id="@+id/withdrawButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/lgn_btn"
+            android:text="@string/withdraw"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,59 +1,16 @@
 package com.microinvestment.data.db
 
 import android.content.Context
-import androidx.room.Dao
 import androidx.room.Database
-import androidx.room.Insert
-import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.Update
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.microinvestment.data.dao.InvestmentDao
+import com.microinvestment.data.dao.PlanDao
+import com.microinvestment.data.dao.UserDao
 import com.microinvestment.data.models.Investment
 import com.microinvestment.data.models.Plan
 import com.microinvestment.data.models.User
-import java.util.concurrent.Executors
-
-
-@Dao
-interface UserDao {
-    @Insert
-    fun insert(user: User): Long
-
-    @Query("SELECT * FROM User WHERE username = :username")
-    fun getUser(username: String): User?
-
-    @Query("SELECT * FROM User WHERE id = :id")
-    fun getUserById(id: Int): User?  // Add this method to get user by ID
-}
-
-@Dao
-interface PlanDao {
-    @Insert
-    fun insert(plan: Plan)
-
-    @Query("SELECT * FROM Plan")
-    fun getAll(): List<Plan>
-
-    @Query("SELECT * FROM Plan WHERE id = :id")
-    fun getById(id: Int): Plan
-}
-
-@Dao
-interface InvestmentDao {
-    @Insert
-    fun insert(investment: Investment)
-
-    @Query("SELECT * FROM Investment WHERE userId = :userId")
-    fun getUserInvestments(userId: Int): List<Investment>
-
-    @Query("SELECT * FROM Investment WHERE id = :id")
-    fun getById(id: Int): Investment
-
-    @Update
-    fun update(investment: Investment)
-}
-
 
 @Database(entities = [User::class, Plan::class, Investment::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

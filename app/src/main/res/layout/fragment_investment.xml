@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/_15sdp"
     tools:context=".ui.dashboard.InvestmentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/chirp_medium"
+        android:text="@string/hello_blank_fragment"
+        android:textSize="@dimen/_12ssp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@id/title"
+        android:layout_marginTop="@dimen/_10sdp" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/noData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/no_data_available"
+            android:src="@drawable/no_data" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chirp"
+            android:text="@string/no_data_available"
+            android:textSize="@dimen/_13ssp" />
+    </LinearLayout>
+
+</RelativeLayout>

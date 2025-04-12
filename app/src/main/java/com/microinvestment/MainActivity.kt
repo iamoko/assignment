@@ -7,7 +7,7 @@ import androidx.viewpager.widget.ViewPager
 import com.microinvestment.data.db.AppDatabase
 import com.microinvestment.data.models.User
 import com.microinvestment.databinding.ActivityMainBinding
-import com.microinvestment.ui.ViewPagerAdapter
+import com.microinvestment.adapters.ViewPagerAdapter
 import com.microinvestment.utils.SharedPrefManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var sharedPref: SharedPrefManager
-    private var userId: Int = -1
+    var userId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +26,12 @@ class MainActivity : AppCompatActivity() {
         initViews()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
     private fun initViews() {
-        sharedPref = SharedPrefManager(this)
-        userId = sharedPref.getUserId()
-
-
         sharedPref = SharedPrefManager(this)
         userId = sharedPref.getUserId()
 
@@ -59,8 +60,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun ActivityMainBinding.viewPager() {/* Set up pages for preview */
-        viewPager.offscreenPageLimit = 5
-        ViewPagerAdapter(supportFragmentManager).apply {
+        viewPager.offscreenPageLimit = 2
+        ViewPagerAdapter(supportFragmentManager, userId).apply {
             list = ArrayList<String>().apply {
                 add(getString(R.string.home))
                 add(getString(R.string.investments))
@@ -91,26 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadUserPortfolio(user: User) {
-        // Display the user's investment portfolio
-//        val investments = db.investmentDao().getUserInvestments(user.id)
-//
-//        if (investments.isEmpty()) {
-//            portfolioTextView.text = "You have no investments yet."
-//        } else {
-//            val portfolioContent = StringBuilder("Your Investments:\n")
-//            investments.forEach { investment ->
-//                val plan = db.planDao().getById(investment.planId)
-//                val currentValue = InvestmentUtils.calculateCurrentValue(investment, plan)
-//                portfolioContent.append(
-//                    "Plan: ${plan.name}\nAmount: UGX ${investment.amount}\nCurrent Value: UGX ${
-//                        "%.2f".format(
-//                            currentValue
-//                        )
-//                    }\n\n"
-//                )
-//            }
-//            portfolioTextView.text = portfolioContent.toString()
-//        }
+
 
         // You could also add buttons or other UI elements to handle further actions such as investment, withdrawal, etc.
     }
