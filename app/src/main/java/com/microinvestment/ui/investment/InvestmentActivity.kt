@@ -27,7 +27,7 @@ class InvestmentActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        db = AppDatabase.getDatabase(this)
+        db = AppDatabase.getInstance(this)
 
         binding.apply {
             val plans = db.planDao().getAll()

@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 
 class InvestmentViewModel(application: Application) : AndroidViewModel(application) {
-    private val db = AppDatabase.getDatabase(application)
+    private val db = AppDatabase.getInstance(application)
     val plans = MutableLiveData<List<Plan>>()
     val investments = MutableLiveData<List<Investment>>()
 

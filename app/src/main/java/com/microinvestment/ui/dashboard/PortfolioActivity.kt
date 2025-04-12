@@ -29,7 +29,7 @@ class PortfolioActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initViews() {
-        db = AppDatabase.getDatabase(this)
+        db = AppDatabase.getInstance(this)
 
         binding.apply {
             val container = findViewById<LinearLayout>(R.id.portfolioContainer)

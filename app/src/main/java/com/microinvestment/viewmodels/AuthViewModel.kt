@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
-    private val db = AppDatabase.getDatabase(application)
+    private val db = AppDatabase.getInstance(application)
     private val repository = AuthRepository(db)
 
     private val _loginStatus = MutableLiveData<User?>()

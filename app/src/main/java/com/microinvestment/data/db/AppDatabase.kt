@@ -65,37 +65,42 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "investment_db"
-                ).addCallback(object : RoomDatabase.Callback() {
-                    override fun onCreate(db: SupportSQLiteDatabase) {
-                        super.onCreate(db)
-                        Executors.newSingleThreadExecutor().execute {
-                            getDatabase(context).planDao().apply {
-                                insert(
-                                    Plan(
-                                        name = "SaveDaily",
-                                        returnRate = 1.5,
-                                        lockPeriodDays = 7
-                                    )
-                                )
-                                insert(
-                                    Plan(
-                                        name = "GrowFast",
-                                        returnRate = 2.0,
-                                        lockPeriodDays = 14
-                                    )
-                                )
-                            }
-                        }
+        fun getInstance(context: Context): AppDatabase =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+            }
+
+        private fun buildDatabase(context: Context) =
+            Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java,
+                "investment_db"
+            )
+                .addCallback(seedDatabaseCallback(context))
+                .build()
+
+        private fun seedDatabaseCallback(context: Context): Callback {
+            return object : Callback() {
+                override fun onCreate(db: SupportSQLiteDatabase) {
+                    super.onCreate(db)
+                    ioThread {
+                        val yourDao = getInstance(context).planDao()
+                        yourDao.insert(
+                            Plan(
+                                name = "SaveDaily",
+                                returnRate = 1.5,
+                                lockPeriodDays = 7
+                            )
+                        )
+                        yourDao.insert(
+                            Plan(
+                                name = "GrowFast",
+                                returnRate = 2.0,
+                                lockPeriodDays = 14
+                            )
+                        )
                     }
-                }).build()
-                INSTANCE = instance
-                instance
+                }
             }
         }
     }
