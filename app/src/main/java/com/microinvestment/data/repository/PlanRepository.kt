@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-class PlanRepository(private val context: Context) {
+class PlanRepository(context: Context) {
 
     private val db = AppDatabase.getInstance(context)
 

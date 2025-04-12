@@ -48,13 +48,17 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.common.jvm)
+    implementation(libs.core.ktx)
+    implementation(libs.androidx.junit.ktx)
+    testImplementation(libs.androidx.espresso.core)
 //    implementation(libs.androidx.room.compiler)
-    kapt("androidx.room:room-compiler:2.7.0")
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     //size dp/sp
     implementation(libs.sdp.android)
