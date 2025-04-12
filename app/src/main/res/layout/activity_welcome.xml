@@ -16,7 +16,7 @@
         tools:ignore="UselessParent">
 
         <ImageView
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_110sdp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:contentDescription="@string/logo"

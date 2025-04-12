@@ -29,12 +29,18 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun register(username: String, password: String) {
+    fun register(name: String, username: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val existing = repository.getUser(username)
             if (existing == null) {
                 val userId =
-                    repository.registerUser(User(username = username, password = password)).toInt()
+                    repository.registerUser(
+                        User(
+                            name = name,
+                            username = username,
+                            password = password
+                        )
+                    ).toInt()
                 val newUser = repository.getUserById(userId)
                 _registrationStatus.postValue(newUser)
             } else {

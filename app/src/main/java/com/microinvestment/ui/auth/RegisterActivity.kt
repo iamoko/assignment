@@ -2,10 +2,13 @@ package com.microinvestment.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.microinvestment.R
 import com.microinvestment.databinding.ActivityRegisterBinding
+import com.microinvestment.utils.Utils.makeLinks
 import com.microinvestment.viewmodels.AuthViewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -47,6 +50,7 @@ class RegisterActivity : AppCompatActivity() {
             registerButton.setOnClickListener {
                 val username = usernameEditText.text.toString().trim()
                 val password = passwordEditText.text.toString().trim()
+                val name = nameEditText.text.toString().trim()
 
                 if (username.isEmpty() || password.isEmpty()) {
                     Toast.makeText(
@@ -58,13 +62,14 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 // Call ViewModel to handle registration
-                authViewModel.register(username, password)
+                authViewModel.register(name, username, password)
             }
 
-            loginTextView.setOnClickListener {
-                // Navigate to Login screen
-                goToLogin()
-            }
+            loginButton.makeLinks(
+                Pair(getString(R.string.login_here), View.OnClickListener {
+                    onBackPressedDispatcher.onBackPressed()
+                }),
+            )
         }
     }
 
