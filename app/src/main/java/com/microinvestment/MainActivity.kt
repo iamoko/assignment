@@ -2,16 +2,10 @@ package com.microinvestment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.microinvestment.adapters.ViewPagerAdapter
-import com.microinvestment.data.db.AppDatabase
-import com.microinvestment.data.models.User
 import com.microinvestment.databinding.ActivityMainBinding
 import com.microinvestment.utils.SharedPrefManager
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -30,16 +24,6 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         sharedPref = SharedPrefManager(this)
         userId = sharedPref.getUserId()
-
-        /** To avoid blocking the main thread */
-        lifecycleScope.launch {
-            val db = AppDatabase.getInstance(this@MainActivity)
-            val user = withContext(Dispatchers.IO) {
-                db.userDao().getUserById(userId)
-            }
-
-            if (user != null) loadUserPortfolio(user)
-        }
 
         binding.apply {
             menu.selectedItemId = R.id.home
@@ -85,11 +69,5 @@ class MainActivity : AppCompatActivity() {
 
             override fun onPageScrollStateChanged(state: Int) {}
         })
-    }
-
-    private fun loadUserPortfolio(user: User) {
-
-
-        // You could also add buttons or other UI elements to handle further actions such as investment, withdrawal, etc.
     }
 }
