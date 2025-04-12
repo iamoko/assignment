@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/chirp"
-            android:text="Total Invested: UGX 0"
+            android:text="@string/total_invested_ugx_0"
             android:textSize="@dimen/_12ssp" />
 
         <TextView
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/chirp"
-            android:text="Total Earnings: UGX 0"
+            android:text="@string/total_earnings_ugx_0"
             android:textSize="@dimen/_12ssp" />
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/chirp"
-            android:text="Available for Withdrawal: UGX 0"
+            android:text="@string/available_for_withdrawal_ugx_0"
             android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView

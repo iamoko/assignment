@@ -37,5 +37,8 @@
     <string name="registration_successful">Registration Successful</string>
     <string name="logout">Logout</string>
     <string name="please_accept_app_permissions">Please accept notification permissions</string>
-    <string name="ok_btn">Ok</string>
+    <string name="ok_btn">OK</string>
+    <string name="total_invested_ugx_0">Total Invested: UGX 0</string>
+    <string name="total_earnings_ugx_0">Total Earnings: UGX 0</string>
+    <string name="available_for_withdrawal_ugx_0">Available for Withdrawal: UGX 0</string>
 </resources>

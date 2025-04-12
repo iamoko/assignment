@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.microinvestment.data.db.AppDatabase
 import com.microinvestment.data.models.Investment
 import com.microinvestment.data.models.InvestmentSummary
 import com.microinvestment.data.models.InvestmentWithPlan
@@ -21,16 +20,9 @@ class InvestmentViewModel(application: Application) : AndroidViewModel(applicati
         InvestmentRepository(application)
     private val planRepository: PlanRepository =
         PlanRepository(application)
-    val investments = MutableLiveData<List<Investment>>()
-    val investmentCreationStatus = MutableLiveData<Boolean>()
 
-    // Get all investments for a user
-    fun getUserInvestments(userId: Int) {
-        viewModelScope.launch {
-            val userInvestments = investmentRepository.getUserInvestments(userId)
-            investments.postValue(userInvestments)
-        }
-    }
+    private val investmentCreationStatus = MutableLiveData<Boolean>()
+
 
     // Create a new investment
     fun addInvestment(userId: Int, planId: Int, amount: Double) {
@@ -51,15 +43,6 @@ class InvestmentViewModel(application: Application) : AndroidViewModel(applicati
     fun updateInvestment(investment: Investment) {
         viewModelScope.launch {
             investmentRepository.updateInvestment(investment)
-        }
-    }
-
-    private val _investmentWithPlan = MutableLiveData<InvestmentWithPlan?>()
-    val investmentWithPlan: LiveData<InvestmentWithPlan?> = _investmentWithPlan
-
-    fun loadInvestmentWithPlan(investmentId: Int) {
-        viewModelScope.launch {
-            _investmentWithPlan.value = investmentRepository.getInvestmentWithPlan(investmentId)
         }
     }
 
