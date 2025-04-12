@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -51,17 +52,26 @@
             android:padding="@dimen/_10sdp"
             android:textSize="@dimen/_12ssp" />
 
-        <EditText
-            android:id="@+id/passwordEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/text_input"
-            android:hint="@string/password"
-            android:importantForAutofill="no"
-            android:inputType="textPassword"
-            android:padding="@dimen/_10sdp"
-            android:textSize="@dimen/_12ssp" />
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="false">
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="password"
+                android:background="@drawable/text_input"
+                android:fontFamily="@font/chirp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <Button

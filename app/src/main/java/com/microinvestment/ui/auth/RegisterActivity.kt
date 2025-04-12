@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputLayout
 import com.microinvestment.R
 import com.microinvestment.databinding.ActivityRegisterBinding
 import com.microinvestment.utils.Utils.makeLinks
@@ -47,6 +49,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun initViews() {
         binding.apply {
+            /** Password toggle */
+            textInput.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
             registerButton.setOnClickListener {
                 val username = usernameEditText.text.toString().trim()
                 val password = passwordEditText.text.toString().trim()

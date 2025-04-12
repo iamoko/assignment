@@ -48,4 +48,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun getUserById(userId: Int): User? {
+        return db.userDao().getUserById(userId)
+    }
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputLayout
 import com.microinvestment.MainActivity
 import com.microinvestment.R
 import com.microinvestment.databinding.ActivityLoginBinding
@@ -54,6 +55,8 @@ class LoginActivity : AppCompatActivity() {
     private fun initViews() {
         sharedPref = SharedPrefManager(this)
         binding.apply {
+            /** Password toggle */
+            textInput.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
 
             // Login button click handler
             loginButton.setOnClickListener {
