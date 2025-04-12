@@ -20,9 +20,4 @@ class PlanRepository(context: Context) {
     suspend fun getPlanById(id: Int): Plan = withContext(Dispatchers.IO) {
         db.planDao().getPlanById(id)
     }
-
-    // Add a new plan (if needed)
-    suspend fun insertPlan(plan: Plan) = withContext(Dispatchers.IO) {
-        db.planDao().insert(plan)
-    }
 }
