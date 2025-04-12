@@ -2,45 +2,43 @@ package com.microinvestment.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.microinvestment.data.db.AppDatabase
 import com.microinvestment.data.models.User
+import com.microinvestment.data.repository.AuthRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val db = AppDatabase.getDatabase(application)
+    private val repository = AuthRepository(db)
 
-    // LiveData to observe registration and login statuses
-    val loginStatus = MutableLiveData<User?>()
-    val registrationStatus = MutableLiveData<Boolean>()
+    private val _loginStatus = MutableLiveData<User?>()
+    val loginStatus: LiveData<User?> = _loginStatus
 
-    // Login function
+    private val _registrationStatus = MutableLiveData<User?>()
+    val registrationStatus: LiveData<User?> = _registrationStatus
+
     fun login(username: String, password: String) {
-        viewModelScope.launch {
-            val user = db.userDao().getUser(username)
-            if (user != null && user.password == password) {
-                // Valid user, login successful
-                loginStatus.postValue(user)
-            } else {
-                // Invalid credentials, login failed
-                loginStatus.postValue(null)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            val user = repository.login(username, password)
+            _loginStatus.postValue(user)
         }
     }
 
-    // Register function
     fun register(username: String, password: String) {
-        viewModelScope.launch {
-            // Check if user already exists
-            if (db.userDao().getUser(username) != null) {
-                registrationStatus.postValue(false) // User already exists
+        viewModelScope.launch(Dispatchers.IO) {
+            val existing = repository.getUser(username)
+            if (existing == null) {
+                val userId =
+                    repository.registerUser(User(username = username, password = password)).toInt()
+                val newUser = repository.getUserById(userId)
+                _registrationStatus.postValue(newUser)
             } else {
-                // Register new user
-                val user = User(username = username, password = password)
-                db.userDao().insert(user)
-                registrationStatus.postValue(true) // Successfully registered
+                _registrationStatus.postValue(null) // Already exists
             }
         }
     }

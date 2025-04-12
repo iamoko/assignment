@@ -18,31 +18,32 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel()
         initViews()
+    }
+
+    private fun viewModel() {
+        // Initialize ViewModel
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        // Observe the registration status
+        authViewModel.registrationStatus.observe(this@RegisterActivity) { user ->
+            if (user != null) {
+                Toast.makeText(
+                    this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT
+                ).show()
+                // Navigate to login or next screen
+                goToLogin()
+            } else {
+                Toast.makeText(
+                    this@RegisterActivity, "Username already taken", Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
 
     private fun initViews() {
-        // Initialize ViewModel
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
-
         binding.apply {
-
-            // Observe the registration status
-            authViewModel.registrationStatus.observe(this@RegisterActivity) { isRegistered ->
-                if (isRegistered) {
-                    Toast.makeText(
-                        this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT
-                    ).show()
-                    // Navigate to login or next screen
-                    goToLogin()
-                } else {
-                    Toast.makeText(
-                        this@RegisterActivity, "Username already taken", Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
             registerButton.setOnClickListener {
                 val username = usernameEditText.text.toString().trim()
                 val password = passwordEditText.text.toString().trim()

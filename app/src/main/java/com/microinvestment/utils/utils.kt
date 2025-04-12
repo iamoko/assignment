@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.microinvestment.utils
 
 import android.text.Selection
@@ -11,6 +9,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.microinvestment.R
 
 object Utils {
@@ -21,7 +20,8 @@ object Utils {
             val clickableSpan = object : ClickableSpan() {
                 override fun updateDrawState(textPaint: TextPaint) {
                     // use this to change the link color
-                    textPaint.color = resources.getColor(R.color.main_color)
+
+                    textPaint.color =  ContextCompat.getColor(context, R.color.main_color)
                     // toggle below value to enable/disable
                     // the underline shown below the clickable text
                     textPaint.isUnderlineText = true

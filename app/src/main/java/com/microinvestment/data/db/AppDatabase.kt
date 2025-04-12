@@ -18,7 +18,7 @@ import java.util.concurrent.Executors
 @Dao
 interface UserDao {
     @Insert
-    fun insert(user: User)
+    fun insert(user: User): Long
 
     @Query("SELECT * FROM User WHERE username = :username")
     fun getUser(username: String): User?

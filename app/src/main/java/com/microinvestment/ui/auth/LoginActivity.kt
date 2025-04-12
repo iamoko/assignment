@@ -20,34 +20,39 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel()
         initViews()
+
+
+    }
+
+    private fun viewModel() {
+        // Initialize ViewModel
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        // Observe login status
+        authViewModel.loginStatus.observe(this@LoginActivity) { user ->
+            if (user != null) {
+                // Login successful, navigate to the main screen or next fragment
+                Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT)
+                    .show()
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
+            } else {
+                // Login failed
+                Toast.makeText(
+                    this@LoginActivity,
+                    "Invalid username or password",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     private fun initViews() {
 
-        // Initialize ViewModel
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         binding.apply {
 
-
-            // Observe login status
-            authViewModel.loginStatus.observe(this@LoginActivity) { user ->
-                if (user != null) {
-                    // Login successful, navigate to the main screen or next fragment
-                    Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT)
-                        .show()
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish()
-                } else {
-                    // Login failed
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "Invalid username or password",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
 
             // Login button click handler
             loginButton.setOnClickListener {
