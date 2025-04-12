@@ -7,4 +7,9 @@
     <string name="micro_investment_platform">Micro-Investment Platform</string>
     <string name="get_started">Get Started</string>
     <string name="slogan">Empowering Your Financial Future, One Step at a Time.</string>
+    <string name="login_now">Login Now</string>
+    <string name="please_login_to_use_the_app">Please login to use the app</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
+    <string name="register">Register</string>
 </resources>

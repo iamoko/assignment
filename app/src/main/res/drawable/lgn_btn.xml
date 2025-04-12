@@ -5,7 +5,7 @@
     <solid android:color="@color/main_color" />
     <!-- Set the four corners of the button to be curved -->
     <!-- android:radius The radius of the arc -->
-    <corners android:radius="@dimen/_8sdp" />
+    <corners android:radius="@dimen/_6sdp" />
     <!--The width and color of the border-->
     <stroke
         android:width="3px"

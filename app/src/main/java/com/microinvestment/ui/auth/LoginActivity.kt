@@ -2,11 +2,14 @@ package com.microinvestment.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.microinvestment.MainActivity
+import com.microinvestment.R
 import com.microinvestment.databinding.ActivityLoginBinding
+import com.microinvestment.utils.Utils.makeLinks
 import com.microinvestment.viewmodels.AuthViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -26,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
         authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         binding.apply {
+
 
             // Observe login status
             authViewModel.loginStatus.observe(this@LoginActivity) { user ->
@@ -62,6 +66,16 @@ class LoginActivity : AppCompatActivity() {
                 // Call ViewModel to handle login
                 authViewModel.login(username, password)
             }
+
+            registerButton.makeLinks(
+                Pair(getString(R.string.register), View.OnClickListener {
+                    startActivity(
+                        Intent(
+                            this@LoginActivity, RegisterActivity::class.java
+                        )
+                    )
+                }),
+            )
         }
     }
 }
