@@ -9,12 +9,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.microinvestment.MainActivity
 import com.microinvestment.R
 import com.microinvestment.databinding.ActivityLoginBinding
+import com.microinvestment.utils.SharedPrefManager
 import com.microinvestment.utils.Utils.makeLinks
 import com.microinvestment.viewmodels.AuthViewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var authViewModel: AuthViewModel
+    private lateinit var sharedPref: SharedPrefManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -22,8 +25,6 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel()
         initViews()
-
-
     }
 
     private fun viewModel() {
@@ -32,7 +33,9 @@ class LoginActivity : AppCompatActivity() {
         // Observe login status
         authViewModel.loginStatus.observe(this@LoginActivity) { user ->
             if (user != null) {
-                // Login successful, navigate to the main screen or next fragment
+
+                // Login successful, navigate to the main screen
+                sharedPref.saveUserId(user.id)
                 Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT)
                     .show()
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
@@ -49,10 +52,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-
-
+        sharedPref = SharedPrefManager(this)
         binding.apply {
-
 
             // Login button click handler
             loginButton.setOnClickListener {
