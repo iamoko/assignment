@@ -10,8 +10,6 @@ import com.microinvestment.databinding.LayoutInvestmentBinding
 import com.microinvestment.utils.Clicked
 import com.microinvestment.utils.InvestmentUtils
 import com.microinvestment.utils.Utils
-import java.text.SimpleDateFormat
-import java.util.Date
 
 
 class InvestmentAdapter(
