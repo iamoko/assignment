@@ -8,7 +8,7 @@ import com.microinvestment.data.models.Plan
 @Dao
 interface PlanDao {
     @Insert
-    fun insert(plan: Plan)
+    fun insert(plan: Plan):Long
 
     @Query("SELECT * FROM Plan")
     suspend fun getAllPlans(): List<Plan>

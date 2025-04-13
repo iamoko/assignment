@@ -15,4 +15,7 @@ interface UserDao {
 
     @Query("SELECT * FROM User WHERE id = :id")
     fun getUserById(id: Int): User?  // Add this method to get user by ID
+
+    @Query("SELECT * FROM User WHERE username = :username AND password = :password LIMIT 1")
+    fun login(username: String, password: String): User?
 }

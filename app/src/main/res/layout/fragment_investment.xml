@@ -4,16 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/_15sdp"
     tools:context=".ui.dashboard.InvestmentFragment">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/main_color"
         android:fontFamily="@font/chirp_medium"
+        android:padding="@dimen/_15sdp"
         android:text="@string/hello_blank_fragment"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="@dimen/_14ssp" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title"
-        android:layout_marginTop="@dimen/_15sdp" />
+        android:padding="@dimen/_15sdp" />
 
     <LinearLayout
         android:id="@+id/noData"

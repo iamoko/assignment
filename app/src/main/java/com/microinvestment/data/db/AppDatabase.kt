@@ -12,7 +12,11 @@ import com.microinvestment.data.models.Investment
 import com.microinvestment.data.models.Plan
 import com.microinvestment.data.models.User
 
-@Database(entities = [User::class, Plan::class, Investment::class], version = 1)
+@Database(
+    entities = [User::class, Plan::class, Investment::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun planDao(): PlanDao
@@ -44,14 +48,14 @@ abstract class AppDatabase : RoomDatabase() {
                         val yourDao = getInstance(context).planDao()
                         yourDao.insert(
                             Plan(
-                                name = "SaveDaily",
+                                name = "Save Daily",
                                 returnRate = 1.5,
                                 lockPeriodDays = 7
                             )
                         )
                         yourDao.insert(
                             Plan(
-                                name = "GrowFast",
+                                name = "Grow Fast",
                                 returnRate = 2.0,
                                 lockPeriodDays = 14
                             )

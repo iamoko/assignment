@@ -15,8 +15,7 @@ class InvestmentUtilsTest {
             userId = 1,
             planId = 1,
             amount = 1000.0,
-            startDate = System.currentTimeMillis() - (3 * 24 * 60 * 60 * 1000),
-            withdrawnAt = null
+            startDate = System.currentTimeMillis() - (3 * 24 * 60 * 60 * 1000)
         )
         val plan = Plan(id = 1, name = "Test Plan", returnRate = 1.5, lockPeriodDays = 7)
         val value = InvestmentUtils.calculateCurrentValue(investment, plan)
@@ -32,8 +31,7 @@ class InvestmentUtilsTest {
             planId = 1,
             amount = 1000.0,
             startDate = System.currentTimeMillis() - (3 * 24 * 60 * 60 * 1000),
-            isWithdrawn = false,
-            withdrawnAt = null
+            isWithdrawn = false
         )
         val plan = Plan(id = 1, name = "Test Plan", returnRate = 1.5, lockPeriodDays = 7)
 
@@ -48,8 +46,7 @@ class InvestmentUtilsTest {
             planId = 1,
             amount = 1000.0,
             startDate = System.currentTimeMillis() - (10 * 24 * 60 * 60 * 1000),
-            isWithdrawn = false,
-            withdrawnAt = null
+            isWithdrawn = false
         )
         val plan = Plan(id = 1, name = "Test Plan", returnRate = 1.5, lockPeriodDays = 7)
 
@@ -63,7 +60,7 @@ class InvestmentUtilsTest {
             planId = 1,
             amount = 1000.0,
             startDate = System.currentTimeMillis() - (10 * 24 * 60 * 60 * 1000L), // 10 days ago
-            isWithdrawn = false, withdrawnAt = null
+            isWithdrawn = false
         )
         val plan = Plan(id = 1, name = "Test Plan", returnRate = 2.0, lockPeriodDays = 7)
 
@@ -78,7 +75,7 @@ class InvestmentUtilsTest {
             planId = 1,
             amount = 1000.0,
             startDate = System.currentTimeMillis() - (5 * 24 * 60 * 60 * 1000L), // 5 days ago
-            isWithdrawn = false, withdrawnAt = null
+            isWithdrawn = false
         )
         val plan = Plan(id = 1, name = "Test Plan", returnRate = 2.0, lockPeriodDays = 7)
 

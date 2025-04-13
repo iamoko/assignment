@@ -11,6 +11,7 @@ import com.microinvestment.data.models.InvestmentWithPlan
 import com.microinvestment.data.repository.InvestmentRepository
 import com.microinvestment.data.repository.PlanRepository
 import com.microinvestment.utils.InvestmentUtils
+import com.microinvestment.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -31,8 +32,7 @@ class InvestmentViewModel(application: Application) : AndroidViewModel(applicati
                 userId = userId,
                 planId = planId,
                 amount = amount,
-                startDate = System.currentTimeMillis(),
-                withdrawnAt = null
+                startDate = System.currentTimeMillis()
             )
             investmentRepository.createInvestment(investment)
             investmentCreationStatus.postValue(true)  // Notify that investment was created

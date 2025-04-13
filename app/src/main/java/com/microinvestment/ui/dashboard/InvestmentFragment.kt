@@ -65,7 +65,7 @@ class InvestmentFragment : Fragment() {
             withdrawals.observe(viewLifecycleOwner) { data ->
                 with(binding) {
                     noData.visibility = if (data.isNotEmpty()) View.GONE else View.VISIBLE
-                    recyclerView.adapter = WithdrawalsAdapter(data)
+                    recyclerView.adapter = WithdrawalsAdapter(data.reversed())
                 }
             }
 
@@ -79,7 +79,7 @@ class InvestmentFragment : Fragment() {
             userInvestments.observe(viewLifecycleOwner) { data ->
                 with(binding) {
                     noData.visibility = if (data.isNotEmpty()) View.GONE else View.VISIBLE
-                    recyclerView.adapter = InvestmentAdapter(data, object : Clicked {
+                    recyclerView.adapter = InvestmentAdapter(data.reversed(), object : Clicked {
                         override fun onClick(label: String) {}
                         override fun onClick(data: InvestmentWithPlan) {
                             val investment = data.investment

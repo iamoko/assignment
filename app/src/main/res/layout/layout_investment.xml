@@ -39,8 +39,17 @@
             android:text="@string/investments"
             android:textSize="@dimen/_11ssp" />
 
+
         <TextView
             android:id="@+id/statusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chirp"
+            android:text="@string/investments"
+            android:textSize="@dimen/_11ssp" />
+
+        <TextView
+            android:id="@+id/dateText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/chirp"

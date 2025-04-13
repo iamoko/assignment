@@ -1,5 +1,6 @@
 package com.microinvestment.utils
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -19,6 +20,8 @@ import androidx.core.content.ContextCompat
 import com.microinvestment.R
 import com.microinvestment.data.models.InvestmentWithPlan
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 interface Clicked {
@@ -76,6 +79,12 @@ object Utils {
         )
         val dialog = builder.create()
         dialog.show()
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun currentDate(): String {
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        return sdf.format(Date())
     }
 
     fun spannableStringTextBuilder(titleText: String, context: Context): SpannableStringBuilder {

@@ -18,7 +18,6 @@ class AuthRepository(private val db: AppDatabase) {
 
 
     fun login(username: String, password: String): User? {
-        val user = db.userDao().getUser(username)
-        return if (user?.password == password) user else null
+        return db.userDao().login(username, password)
     }
 }

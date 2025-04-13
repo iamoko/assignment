@@ -10,6 +10,8 @@ import com.microinvestment.databinding.LayoutInvestmentBinding
 import com.microinvestment.utils.Clicked
 import com.microinvestment.utils.InvestmentUtils
 import com.microinvestment.utils.Utils
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 class InvestmentAdapter(
@@ -28,6 +30,7 @@ class InvestmentAdapter(
             LayoutInvestmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
+
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: InvestmentAdapter.ViewHolder, position: Int) {
@@ -49,6 +52,7 @@ class InvestmentAdapter(
                 statusText.text =
                     "Status: ${if (investment.isWithdrawn) "Withdrawn" else if (canWithdraw) "Ready to Withdraw" else "Locked"}"
 
+                dateText.text = "Invested on: ${investment.createdAt}"
                 withdrawButton.visibility =
                     if (canWithdraw && !investment.isWithdrawn) View.VISIBLE else View.GONE
 

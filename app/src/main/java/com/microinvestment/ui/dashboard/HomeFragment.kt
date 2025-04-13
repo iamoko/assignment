@@ -23,6 +23,7 @@ import com.microinvestment.ui.auth.WelcomeActivity
 import com.microinvestment.ui.investment.InvestmentActivity
 import com.microinvestment.utils.Clicked
 import com.microinvestment.utils.SharedPrefManager
+import com.microinvestment.utils.Utils
 import com.microinvestment.viewmodels.InvestmentViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,11 +54,14 @@ class HomeFragment : Fragment() {
         with(ViewModelProvider(this)[InvestmentViewModel::class.java]) {
             loadSummary(userId)
             investmentSummary.observe(viewLifecycleOwner) { summary ->
+
                 binding.apply {
-                    summaryText.text = "Total Invested: UGX %.0f".format(summary.totalInvested)
-                    earningsText.text = "Total Earnings: UGX %.0f".format(summary.totalEarnings)
+                    summaryText.text =
+                        "Total Invested: UGX ${Utils.numFormat(summary.totalInvested)}"
+                    earningsText.text =
+                        "Total Earnings: UGX ${Utils.numFormat(summary.totalEarnings)}"
                     availableText.text =
-                        "Available for Withdrawal: UGX %.0f".format(summary.available)
+                        "Available for Withdrawal: UGX ${Utils.numFormat(summary.available)}"
                 }
             }
         }
@@ -70,6 +74,11 @@ class HomeFragment : Fragment() {
             }
             if (user != null) loadData(user)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ViewModelProvider(this)[InvestmentViewModel::class.java].loadSummary(userId)
     }
 
     private fun loadData(user: User) {

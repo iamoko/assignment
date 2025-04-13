@@ -2,6 +2,7 @@ package com.microinvestment.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.microinvestment.utils.Utils
 
 @Entity
 data class Investment(
@@ -11,5 +12,5 @@ data class Investment(
     val amount: Double,
     val startDate: Long, // timestamp
     var isWithdrawn: Boolean = false,
-    var withdrawnAt: Long?
+    var createdAt: String = Utils.currentDate()
 )

@@ -2,7 +2,7 @@ package com.microinvestment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.microinvestment.adapters.ViewPagerAdapter
 import com.microinvestment.databinding.ActivityMainBinding
 import com.microinvestment.utils.SharedPrefManager
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun ActivityMainBinding.viewPager() {/* Set up pages for preview */
         viewPager.offscreenPageLimit = 2
-        ViewPagerAdapter(supportFragmentManager, userId).apply {
+        ViewPagerAdapter(this@MainActivity, userId).apply {
             list = ArrayList<String>().apply {
                 add(getString(R.string.home))
                 add(getString(R.string.investments))
@@ -51,23 +51,15 @@ class MainActivity : AppCompatActivity() {
 
         /* Switch item selected in the bottom navigation bar using
         the view pager current page*/
-        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int,
-            ) {
-            }
-
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
                 when (position) {
                     0 -> menu.selectedItemId = R.id.home
                     1 -> menu.selectedItemId = R.id.investments
                     2 -> menu.selectedItemId = R.id.withdraw
                 }
             }
-
-            override fun onPageScrollStateChanged(state: Int) {}
         })
     }
 }
